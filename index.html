@@ -59,68 +59,18 @@
         button:hover, a:hover {
             opacity: 0.7;
         }
+        /* Responsive layout */
         @media only screen and (max-width: 325px) {
             .card {
                 width: 90%;
             }
         }
-        @media only screen and (min-width: 326px) {
+        @media only screen and (min-width: 326px) {	
             .card {
-                max-width: 325px;
+                max-width: 325px; /* Set maximum width for larger screens */
             }
         }
     </style>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <script>
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-	  apiKey: "AIzaSyC42QqLlHfotS6Bll4c-7sDfWngTfeEAEI",
-	  authDomain: "viewcount-7f0cb.firebaseapp.com",
-	  projectId: "viewcount-7f0cb",
-	  storageBucket: "viewcount-7f0cb.appspot.com",
-	  messagingSenderId: "773226742292",
-	  appId: "1:773226742292:web:26b9fae197e350245fdd01",
-	  measurementId: "G-LX0Y2V0G5H"
-	};
-      
-      // Initialize Firebase
-      const app = firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore(app);
-      
-      // Increment view count
-      function incrementViewCount() {
-        const viewCountRef = db.collection('pageViews').doc('viewCount');
-        return db.runTransaction((transaction) => {
-          return transaction.get(viewCountRef).then((doc) => {
-            if (!doc.exists) {
-              throw "Document does not exist!";
-            }
-            const newCount = (doc.data().count || 0) + 1;
-            transaction.update(viewCountRef, { count: newCount });
-            document.getElementById('viewCount').innerText = newCount;
-          });
-        }).catch((error) => {
-          console.error("Error updating view count: ", error);
-        });
-      }
-      
-      // Fetch and display the view count on load
-      window.onload = function() {
-        const viewCountRef = db.collection('pageViews').doc('viewCount');
-        viewCountRef.get().then((doc) => {
-          if (doc.exists) {
-            document.getElementById('viewCount').innerText = doc.data().count;
-          } else {
-            console.log("No such document!");
-          }
-        }).catch((error) => {
-          console.log("Error getting document:", error);
-        });
-        incrementViewCount();
-      };
-    </script>
 </head>
 <body>
     <h1>ANKIT SRIVASTAVA</h1>
@@ -128,9 +78,6 @@
         <img src="profilePic.jpg" alt="Profile Picture">
         <p><b>Software Engineering Enthusiast having demonstrated history of writing Production Ready code and following the best practices in SDLC.</b></p>
         <a href="https://www.linkedin.com/in/ankit-srivastava-hbtiankit1994/" target="_blank"><i class="fa fa-linkedin"></i></a>
-    </div>
-    <div style="text-align: center; margin-top: 20px;">
-        <p>View Count: <span id="viewCount">0</span></p>
     </div>
 </body>
 </html>
